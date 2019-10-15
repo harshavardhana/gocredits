@@ -163,6 +163,9 @@ func takeCredits(dir string) ([]*license, error) {
 		dir := filepath.Join(gopkgmod, encodedPath+"@"+stuff[1])
 		licenseFile, content, err := findLicense(dir)
 		if err != nil {
+			if os.IsNotExist(err) {
+				continue
+			}
 			return nil, err
 		}
 		ret = append(ret, &license{
@@ -199,7 +202,7 @@ func findLicense(dir string) (string, string, error) {
 		}
 	}
 	if fileName == "" {
-		return "", "", fmt.Errorf("no LICENSE files found in %q", dir)
+		return "", "", os.ErrNotExist
 	}
 	bs, err := ioutil.ReadFile(filepath.Join(dir, fileName))
 	if err != nil {
