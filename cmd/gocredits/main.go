@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/Songmu/gocredits"
+	"github.com/harshavardhana/gocredits"
 )
 
 func main() {

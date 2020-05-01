@@ -1,6 +1,6 @@
 VERSION = $(shell godzil show-version)
 CURRENT_REVISION = $(shell git rev-parse --short HEAD)
-BUILD_LDFLAGS = "-s -w -X github.com/Songmu/gocredits.revision=$(CURRENT_REVISION)"
+BUILD_LDFLAGS = "-s -w -X github.com/harshavardhana/gocredits.revision=$(CURRENT_REVISION)"
 ifdef update
   u=-u
 endif
@@ -16,9 +16,9 @@ devel-deps: deps
 	GO111MODULE=off go get ${u} \
 	  golang.org/x/lint/golint                  \
 	  github.com/mattn/goveralls                \
-	  github.com/Songmu/godzil/cmd/godzil       \
-	  github.com/Songmu/goxz/cmd/goxz           \
-	  github.com/Songmu/gocredits/cmd/gocredits \
+	  github.com/harshavardhana/godzil/cmd/godzil       \
+	  github.com/harshavardhana/goxz/cmd/goxz           \
+	  github.com/harshavardhana/gocredits/cmd/gocredits \
 	  github.com/tcnksm/ghr
 
 .PHONY: test

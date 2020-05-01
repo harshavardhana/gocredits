@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.1.0]
+
+- add workflow and goreleaser (05/01/20)
+- ignore projects without license (10/14/19)
+
 ## [v0.0.7](https://github.com/Songmu/gocredits/compare/v0.0.6...v0.0.7) (2019-09-22)
 
 * bump Go 1.13 and drop xerrors dependency [#8](https://github.com/Songmu/gocredits/pull/8) ([Songmu](https://github.com/Songmu))

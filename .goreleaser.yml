@@ -1,0 +1,43 @@
+# This is an example goreleaser.yaml file with some sane defaults.
+# Make sure to check the documentation at http://goreleaser.com
+project_name: gocredits
+
+before:
+  hooks:
+    # you may remove this if you don't use vgo
+    - go mod tidy
+builds:
+  -
+    goos:
+      - freebsd
+      - windows
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    main: ./cmd/gocredits/main.go
+    ldflags:
+      - -s -w -X github.com/harshavardhana/gocredits.revision={{.Tag}}
+archives:
+  -
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - README.md
+      - LICENSE
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: 'snapshot-{{ time "2006-01-02" }}'
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'

@@ -1,14 +1,13 @@
 gocredits
 =======
 
-[![Build Status](https://travis-ci.org/Songmu/gocredits.svg?branch=master)][travis]
-[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)][license]
-[![GoDoc](https://godoc.org/github.com/Songmu/gocredits?status.svg)][godoc]
+> Forked from original project https://github.com/Songmu/gocredits
 
-[travis]: https://travis-ci.org/Songmu/gocredits
-[coveralls]: https://coveralls.io/r/Songmu/gocredits?branch=master
-[license]: https://github.com/Songmu/gocredits/blob/master/LICENSE
-[godoc]: https://godoc.org/github.com/Songmu/gocredits
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)][license]
+[![GoDoc](https://godoc.org/github.com/harshavardhana/gocredits?status.svg)][godoc]
+
+[license]: https://github.com/harshavardhana/gocredits/blob/master/LICENSE
+[godoc]: https://godoc.org/github.com/harshavardhana/gocredits
 
 gocredits creates CREDITS file from LICENSE files of dependencies
 
@@ -27,21 +26,11 @@ To use `gocredits`, we should use go modules for dependency management.
 
 ## Installation
 
-### homebrew
-
-```console
-% brew install Songmu/tap/gocredits
-```
-
 ### go get
 
 ```console
-% go get github.com/Songmu/gocredits/cmd/gocredits
+% go get github.com/harshavardhana/gocredits/cmd/gocredits
 ```
 
 Built binaries are available on GitHub Releases.
-<https://github.com/Songmu/gocredits/releases>
-
-## Author
-
-[Songmu](https://github.com/Songmu)
+<https://github.com/harshavardhana/gocredits/releases>
