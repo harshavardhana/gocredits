@@ -23,18 +23,17 @@ builds:
     main: ./cmd/gocredits/main.go
     ldflags:
       - -s -w -X github.com/harshavardhana/gocredits.revision={{.Tag}}
+
 archives:
   -
-    format_overrides:
-      - goos: windows
-        format: zip
-    files:
-      - README.md
-      - LICENSE
-checksum:
-  name_template: 'checksums.txt'
+    name_template: "{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}"
+    format: binary
+    replacements:
+      arm: arm
+
 snapshot:
   name_template: 'snapshot-{{ time "2006-01-02" }}'
+
 changelog:
   sort: asc
   filters:
