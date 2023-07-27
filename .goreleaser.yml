@@ -5,7 +5,8 @@ project_name: gocredits
 before:
   hooks:
     # you may remove this if you don't use vgo
-    - go mod tidy
+    - go mod tidy -compat=1.19
+    
 builds:
   -
     goos:
@@ -23,13 +24,6 @@ builds:
     main: ./cmd/gocredits/main.go
     ldflags:
       - -s -w -X github.com/harshavardhana/gocredits.revision={{.Tag}}
-
-archives:
-  -
-    name_template: "{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}"
-    format: binary
-    replacements:
-      arm: arm
 
 snapshot:
   name_template: 'snapshot-{{ time "2006-01-02" }}'
