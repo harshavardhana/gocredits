@@ -14,6 +14,8 @@ import (
 	"strings"
 	"text/template"
 	"unicode/utf8"
+
+	"github.com/olekukonko/tablewriter"
 )
 
 const (
@@ -37,6 +39,7 @@ func Run(argv []string, outStream, errStream io.Writer) error {
 	ver := fs.Bool("version", false, "display version")
 	var (
 		format    = fs.String("f", "", "format")
+		terse     = fs.Bool("t", false, "write terse result with just license name and project")
 		write     = fs.Bool("w", false, "write result to CREDITS file instead of stdout")
 		printJSON = fs.Bool("json", false, "data to be printed in JSON format")
 	)
@@ -54,6 +57,43 @@ func Run(argv []string, outStream, errStream io.Writer) error {
 	if err != nil {
 		return err
 	}
+
+	if *terse {
+		var s strings.Builder
+
+		// Set table header
+		table := tablewriter.NewWriter(&s)
+		table.SetAutoWrapText(false)
+		table.SetAutoFormatHeaders(true)
+		table.SetHeaderAlignment(tablewriter.ALIGN_LEFT)
+		table.SetAlignment(tablewriter.ALIGN_LEFT)
+		table.SetCenterSeparator("")
+		table.SetColumnSeparator("")
+		table.SetRowSeparator("")
+		table.SetHeaderLine(false)
+		table.SetBorder(false)
+		table.SetTablePadding("\t") // pad with tabs
+		table.SetNoWhiteSpace(true)
+
+		templates, err := loadTemplates()
+		if err != nil {
+			return err
+		}
+
+		table.SetHeader([]string{"Project", "License"})
+		data := make([][]string, 0, len(licenses))
+		for _, lc := range licenses {
+			result := matchTemplates([]byte(lc.Content), templates)
+			data = append(data, []string{lc.Name, result.Template.Title})
+		}
+
+		table.AppendBulk(data)
+		table.Render()
+
+		fmt.Println(s.String())
+		return nil
+	}
+
 	data := struct {
 		Licenses []*license
 	}{
@@ -73,7 +113,7 @@ func Run(argv []string, outStream, errStream io.Writer) error {
 	}
 	out := outStream
 	if *write {
-		f, err := os.OpenFile(filepath.Join(modPath, "CREDITS"), os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0644)
+		f, err := os.OpenFile(filepath.Join(modPath, "CREDITS"), os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0o644)
 		if err != nil {
 			return err
 		}
