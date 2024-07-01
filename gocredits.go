@@ -234,6 +234,9 @@ func findLicense(dir string) (string, string, error) {
 		if f.IsDir() {
 			continue
 		}
+		if f.Name() == "license.go" {
+			continue
+		}
 		n := f.Name()
 		score := scoreLicenseName(n)
 		if score > bestScore {
