@@ -28,5 +28,5 @@ func scoreLicenseName(name string) float64 {
 	case m[4] != "":
 		return 0.7
 	}
-	return 0.
+	return 0.0
 }

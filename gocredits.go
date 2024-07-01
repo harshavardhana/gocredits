@@ -244,6 +244,9 @@ func findLicense(dir string) (string, string, error) {
 			fileName = n
 		}
 	}
+	if bestScore == 0.0 {
+		return "no-license", "All rights reserved propietary", nil
+	}
 	if fileName == "" {
 		return "", "", os.ErrNotExist
 	}
