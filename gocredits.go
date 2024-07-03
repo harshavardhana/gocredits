@@ -244,10 +244,7 @@ func findLicense(dir string) (string, string, error) {
 			fileName = n
 		}
 	}
-	if bestScore == 0.0 {
-		return "no-license", "All rights reserved proprietary", nil
-	}
-	if fileName == "" {
+	if bestScore == 0.0 || fileName == "" {
 		return "", "", os.ErrNotExist
 	}
 	bs, err := ioutil.ReadFile(filepath.Join(dir, fileName))
